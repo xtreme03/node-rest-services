@@ -9,7 +9,8 @@ router.get('/',(req,res,next)=>{
     //console.log('In the last middleware');
     //res.send('<h1>Hello from Pallab</h1>'); 
     console.log('shop.js', adminData.products);
-    res.sendFile(path.join(__dirname,'../','views','shop.html'))
+    //res.sendFile(path.join(__dirname,'../','views','shop.html'))
+    res.render('shop', {prods: adminData.products, pageTitle: 'Shop', path: '/'});
 })
 
 module.exports=router;

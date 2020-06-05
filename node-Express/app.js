@@ -4,14 +4,14 @@ const path= require('path')
 const express=require('express');
 const bodyParser=require('body-parser');
 
-const adminRoutes=require('./routes/admin')
+const adminData=require('./routes/admin')
 const shopRoutes=require('./routes/shop')
 
 const app=express();
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/admin',(res,req,next)=>{console.log("authentication layer"); next();},adminRoutes);
+app.use('/admin',(res,req,next)=>{console.log("authentication layer"); next();},adminData.routes);
 app.use(shopRoutes);
 app.use((req,res,next)=>{
     //res.status(404).send('<h1>Page not found</h1>')

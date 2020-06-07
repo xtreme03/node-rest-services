@@ -21,13 +21,18 @@ exports.addProduct=(req,res,next)=>{
 exports.getProduct=(req,res,next)=>{
     //console.log('In the last middleware');
     //res.send('<h1>Hello from Pallab</h1>'); 
-    const products =Product.fetchAll()
-    console.log('shop.js', products);
+    //const products =Product.fetchAll()
+    //console.log('shop.js', products);
     //res.sendFile(path.join(__dirname,'../','views','shop.html'))
-    res.render('shop', {
-        prods: products, 
-        pageTitle: 'Shop', path: '/',
-        hasProducts:products.length>0,
-        activeShop:true,
-        productCSS:true});
+    Product.fetchAll(products => {
+        res.render('shop', {
+          prods: products,
+          pageTitle: 'Shop',
+          path: '/',
+          hasProducts: products.length > 0,
+          activeShop: true,
+          productCSS: true
+        });
+      });
+    
 }

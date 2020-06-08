@@ -13,7 +13,12 @@ exports.getProduct=(req,res,next)=>{
           path: '/products'
         });
       });
-    
+     
+}
+exports.getProductById=(req,res,next)=>{
+  const productId=req.params.productId;
+  console.log(productId)
+  res.redirect('/')
 }
 
 exports.getIndex=(req,res,next)=>{

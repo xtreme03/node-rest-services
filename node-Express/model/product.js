@@ -20,11 +20,15 @@ const p = path.join(
   };
   
 module.exports=class Product{
-    constructor(title){
+    constructor(title,imageUrl,price,description){
         this.title=title
+        this.imageUrl=imageUrl
+        this.description=description
+        this.price=price
     }
 
     save() {
+      this.id=Math.random().toString();
         getProductsFromFile(products => {
           products.push(this);
           fs.writeFile(p, JSON.stringify(products), err => {

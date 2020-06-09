@@ -1,4 +1,5 @@
 const Product=require('../model/product')
+const Cart=require('../model/cart')
 
 exports.getProduct=(req,res,next)=>{
     //console.log('In the last middleware');
@@ -17,8 +18,13 @@ exports.getProduct=(req,res,next)=>{
 }
 exports.getProductById=(req,res,next)=>{
   const productId=req.params.productId;
-  console.log(productId)
-  res.redirect('/')
+  //console.log(productId)
+  Product.findProductById(productId,product=>{
+    res.render('shop/product-detail',{
+      product:product,
+      pageTitle: product.title,
+    path:'/products'})
+  })
 }
 
 exports.getIndex=(req,res,next)=>{
@@ -44,6 +50,14 @@ exports.getCart=(req,res,next)=>{
     })
 }
 
+exports.postCart=(req,res,next)=>{
+  const prodId=req.body.productId;
+  console.log(prodId);
+  Product.findProductById(prodId,(product)=>{
+    Cart.addProduct(prodId,product.price)
+  })
+  res.redirect('/')
+}
 exports.getCheckout=(req,res,next)=>{
     res.render('shop/checkout',{
         path:'/checkout',

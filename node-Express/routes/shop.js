@@ -2,11 +2,18 @@ const path=require('path')
 
 const express=require('express')
 
+//const adminData = require('./admin');
+const shopController=require('../controllers/shop')
+const { render } = require('pug')
+
+
 const router=express.Router()
-router.get('/',(req,res,next)=>{
-    //console.log('In the last middleware');
-    //res.send('<h1>Hello from Pallab</h1>'); 
-    res.sendFile(path.join(__dirname,'../','views','shop.html'))
-})
+router.get('/',shopController.getIndex)
+router.get('/products',shopController.getProduct)
+router.get('/products/:productId',shopController.getProductById)
+router.get('/cart',shopController.getCart)
+router.post('/cart',shopController.postCart)
+router.post('/cart-delete-item',shopController.postCartDeleteProduct)
+router.get('/checkout',shopController.getCheckout)
 
 module.exports=router;

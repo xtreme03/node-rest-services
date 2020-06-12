@@ -2,15 +2,22 @@ const path=require('path')
 
 const express=require('express')
 
-const router=express.Router();
-router.get('/add-product',(req,res,next)=>{
-    console.log('In another middleware');
-    //res.send('<form action="/admin/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>')
-    res.sendFile(path.join(__dirname,'../','views','add-product.html'))
-})
-router.post('/product',(req,res,next)=>{
-    console.log(req.body);
-    res.redirect('/');   
-})
+const adminController=require('../controllers/admin')
 
-module.exports=router;
+const router=express.Router();
+
+
+router.get('/add-product',adminController.getAddProduct)
+
+router.get('/products',adminController.getAdminProducts)
+
+router.post('/add-product',adminController.postAddProduct)
+
+router.get('/edit-product/:productId',adminController.getEditProduct)
+
+router.post('/edit-product',adminController.postEditProduct) //will update it to update product route later
+
+router.post('/delete-product',adminController.postDeleteProduct)
+
+//module.exports=router;
+module.exports= router;
